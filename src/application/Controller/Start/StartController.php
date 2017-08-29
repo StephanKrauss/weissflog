@@ -28,14 +28,21 @@
 				if( $request->isGet() )
 				{
 					$content = array(
-						'wert1' => 'abc',
-						'wert2' => 123
+						'page' => ''
 					);
+
+
+					$fileContent = file('page/impressum.md');
+					$parsedown = new \Parsedown();
+
+					for($i=0; $i < count($fileContent); $i++){
+						$content['page'] .= $parsedown->text($fileContent[$i]);
+					}
 
 					return $this->view->render( $response, 'start.tpl', $content);
 				}
 			}
-			catch(\Exception $e){
+			catch(StartException $e){
 				throw $e;
 			}
 		}

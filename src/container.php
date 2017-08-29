@@ -15,12 +15,13 @@
 
 	// Error
 	$container['errorHandler'] = function($c){
-		return function ($request, $response,\Exception $exception) use ($c) {
-
+		return function ($request, $response,\Exception $exception) use ($c)
+		{
 			$errorMessage = 'Fehler';
 			$errorMessage .= 'File: '.$exception->getFile().'<br>';
 			$errorMessage .= 'Line: '.$exception->getLine().'<br>';
 			$errorMessage .= 'Message: '.$exception->getMessage().'<br>';
+			$errorMessage .= 'Code: '.$exception->getCode().'<br>';
 			$errorMessage .= '------------------- <br>';
 
 			$errorMessage .= nl2br($exception->getTraceAsString());
