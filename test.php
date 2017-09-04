@@ -1,7 +1,6 @@
 <?php
 class foo{
-	public function __construct() {
+	public function abc() {
 		$wert = ['aaa', ' bbb', 'ccc'];
 	}
-
 }

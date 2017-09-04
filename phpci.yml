@@ -1,0 +1,15 @@
+test:
+  php_mess_detector:
+    path: 'src/'
+    ignore:
+      - 'vendor'
+    allowed_warnings: -1
+    rules:
+      - "cleancode"
+      - "controversial"
+      - "codesize"
+      - "design"
+      - "naming"
+      - "unusedcode"
+      - "somedir/customruleset.xml"
+    zero_config: true

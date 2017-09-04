@@ -13,3 +13,13 @@ body {
         padding-top: 56px;
     }
 }
+
+#fileselector {
+    margin: 10px;
+}
+#upload-file-selector {
+    display:none;
+}
+.margin-correction {
+    margin-right: 10px;
+}

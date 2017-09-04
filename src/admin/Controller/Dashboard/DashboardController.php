@@ -1,6 +1,6 @@
 <?php
 
-	namespace App\Controller\Start;
+	namespace Admin\Controller\Dashboard;
 
 	use Slim\Http\Request;
 	use Slim\Http\Response;
@@ -12,7 +12,7 @@
 	 * @date 29.08.2017
 	 * @file Start.php
 	 */
-	class StartController
+	class DashboardController
 	{
 		protected $view;
 
@@ -34,15 +34,12 @@
 						'page' => ''
 					);
 
+					$content = [
+						'wert1' => 'aaaaaaaaaa',
+						'wert2' => 'bbbbbbbbbb'
+					];
 
-					$fileContent = file('page/impressum.md');
-					$parsedown = new \Parsedown();
-
-					for($i=0; $i < count($fileContent); $i++){
-						$content['page'] .= $parsedown->text($fileContent[$i]);
-					}
-
-					return $this->view->render( $response, 'start.tpl', $content);
+					return $this->view->render( $response, 'dashboard.tpl', $content);
 				}
 			}
 			catch(StartException $e){
