@@ -25,33 +25,48 @@
 		public function __invoke(Request $request, Response $response, array $params)
 		{
 			try{
-//				$navigation = new \App\Model\Navigation\NavigationModel();
-//				$navigation->setNavigation($params['name']);
+				$templateVars = [];
+
+				$navigationModel = new \App\Model\Navigation\NavigationModel();
+				$templateVars['categories'] = $navigationModel->work()->getNavigation();
+
+				// Kopfnavigation
+				if( is_array($params) and (count($params) > 0) ){
+					$templateVars[$params['name']] = 'active';
+					$seite = $params['name'].".md";
+				}
+				else{
+					$templateVars['uebersicht'] = 'active';
+					$seite = 'uebersicht.md';
+				}
 
 				if( $request->isGet() )
 				{
-					$templateVars = [];
-
-					// Navigation
-					if( is_array($params) and (count($params) > 0) ){
-						$content[$params['name']] = 'active';
-						$seite = $params['name'].".md";
-					}
-					else{
-						$content['uebersicht'] = 'active';
-						$seite = 'uebersicht.md';
-					}
-
-					$content = file_get_contents('page/'.$seite);
-					$parseDownParser = new \Parsedown();
-					$templateVars['page'] = $parseDownParser->text($content);
-
-					return $this->view->render( $response, 'start.tpl', $templateVars);
+					$templateVars = $this->get($seite, $templateVars);
 				}
+
+				return $this->view->render( $response, 'start.tpl', $templateVars);
 			}
 			catch(StartException $e){
 				throw $e;
 			}
+		}
+
+		/**
+		 * parst den Inhalt der statischen Seite
+		 *
+		 * @param $seite
+		 * @param $templateVars
+		 *
+		 * @return mixed
+		 */
+		protected function get($seite, $templateVars)
+		{
+			$content = file_get_contents('page/'.$seite);
+			$parseDownParser = new \Parsedown();
+			$templateVars['page'] = $parseDownParser->text($content);
+
+			return $templateVars;
 		}
 
 	}

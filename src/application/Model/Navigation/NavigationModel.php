@@ -12,16 +12,39 @@
 	 */
 	class NavigationModel
 	{
-		protected $seitenName = null;
+		protected $navigation = array(
+			array(
+				'link' => 'aaa',
+				'description' => 'AAA'
+			),
+			array(
+				'link' => 'bbb',
+				'description' => 'BBB'
+			)
+		);
 
-		protected $statischeSeiten = [];
-
-		public function setNavigation($seitenName)
+		/**
+		 * Tu irgend etwas
+		 *
+		 * @return $this
+		 * @throws \Throwable
+		 */
+		public function work()
 		{
-			$this->seitenName = $seitenName;
+			try{
 
-			return $this;
+				return $this;
+			}
+			catch(\Throwable $e){
+				throw $e;
+			}
 		}
 
-
+		/**
+		 * @return array
+		 */
+		public function getNavigation()
+		{
+			return $this->navigation;
+		}
 	}
