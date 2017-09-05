@@ -22,27 +22,31 @@
 			$this->view = $view;
 		}
 
-		public function __invoke(Request $request, Response $response)
+		public function __invoke(Request $request, Response $response, array $params)
 		{
 			try{
-
-				$testgggg = "awfaasdadasdasd";
+//				$navigation = new \App\Model\Navigation\NavigationModel();
+//				$navigation->setNavigation($params['name']);
 
 				if( $request->isGet() )
 				{
-					$content = array(
-						'page' => ''
-					);
+					$templateVars = [];
 
-
-					$fileContent = file('page/impressum.md');
-					$parsedown = new \Parsedown();
-
-					for($i=0; $i < count($fileContent); $i++){
-						$content['page'] .= $parsedown->text($fileContent[$i]);
+					// Navigation
+					if( is_array($params) and (count($params) > 0) ){
+						$content[$params['name']] = 'active';
+						$seite = $params['name'].".md";
+					}
+					else{
+						$content['uebersicht'] = 'active';
+						$seite = 'uebersicht.md';
 					}
 
-					return $this->view->render( $response, 'start.tpl', $content);
+					$content = file_get_contents('page/'.$seite);
+					$parseDownParser = new \Parsedown();
+					$templateVars['page'] = $parseDownParser->text($content);
+
+					return $this->view->render( $response, 'start.tpl', $templateVars);
 				}
 			}
 			catch(StartException $e){
