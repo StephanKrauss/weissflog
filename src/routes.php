@@ -11,3 +11,4 @@ $app->get('/kategorie/{name}' , $container[\App\Controller\Start\StartController
 
 // Admin , Dashboard
 $app->get('/admin/', $container[\Admin\Controller\Dashboard\DashboardController::class]);
+$app->post('/admin/', $container[\Admin\Controller\Dashboard\DashboardController::class]);

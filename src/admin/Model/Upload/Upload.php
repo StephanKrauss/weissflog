@@ -1687,6 +1687,13 @@ class Upload {
      */
     var $translation;
 
+	/**
+     * Dateiname
+     *
+	 * @var null
+	 */
+    protected $file = null;
+
     /**
      * Language selected for the translations
      *
@@ -1696,6 +1703,30 @@ class Upload {
      * @var array
      */
     var $lang;
+
+	/**
+	 * @param $file
+	 *
+	 * @return $this
+	 */
+    public function setFile($file)
+    {
+        $this->file = $file;
+
+        return $this;
+    }
+
+	/**
+	 * @param $lang
+	 *
+	 * @return $this
+	 */
+    public function setLanguage($lang)
+    {
+        $this->lang = $lang;
+
+        return $this;
+    }
 
     /**
      * Init or re-init all the processing variables to their default values
@@ -2009,8 +2040,9 @@ class Upload {
     /**
      * Constructor, for PHP5+
      */
-    function  __construct($file, $lang = 'en_GB')  {
-        $this->upload($file, $lang);
+    function  __construct()  {
+        // $file, $lang = 'en_GB'
+        // $this->upload($file, $lang);
     }
 
     /**
@@ -2037,7 +2069,11 @@ class Upload {
      *    or   string $file Local filename
      * @param  string $lang Optional language code
      */
-    function upload($file, $lang = 'en_GB') {
+    function upload() {
+
+        $file = $this->file;
+        $lang = $this->language;
+
 
         $this->version            = '0.34dev';
 

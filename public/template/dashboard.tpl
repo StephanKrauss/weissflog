@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Admin Dashboard</title>
+    <title>Admin Dashboard, Übersicht</title>
 
     <!-- Bootstrap core CSS -->
     <link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -17,7 +17,7 @@
     <link href="../css/shop-item.css" rel="stylesheet">
 
     <!-- Markdown -->
-    <link rel="stylesheet" href="//cdn.jsdelivr.net/editor/0.1.0/editor.css">
+    <link rel="stylesheet" href="../editor/editor.css">
 
 </head>
 
@@ -54,62 +54,7 @@
 
 <!-- Page Content -->
 <div class="container">
-
-    <div class="row">
-
-        <div class="col-lg-3">
-            <div class="list-group">
-                <a href="#" class="list-group-item active">Artikel anlegen</a>
-                <a href="#" class="list-group-item">Artikel Übersicht</a>
-            </div>
-        </div>
-        <!-- /.col-lg-3 -->
-
-        <div class="col-lg-9">
-
-            <div class="card mt-4">
-                <form>
-                    <div class="form-group">
-                      <label class="col-md-4 control-label" for="input01">Überschrift</label>
-                      <div class="col-md-6">
-                        <input placeholder="Überschrift" class="form-control input-md" type="text">
-                      </div>
-                    </div>
-
-                    <div class="form-group">
-                      <label class="col-md-4 control-label" for="input01">Zusatzinformation</label>
-                      <div class="col-md-6">
-                        <input placeholder="Zusatzinformation" class="form-control input-md" type="text">
-                      </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="comment" class="col-md-4 control-label">Text</label>
-                        <textarea class="form-control" rows="5" name="description"></textarea>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="btn btn-default">
-                            <button class="btn btn-warning" type="submit">Bild auswählen</button> <input type="file" hidden>
-                        </label>
-                    </div>
-
-                    <div class="form-group">
-                        <div class="col-md-6">
-                            <button class="btn btn-success" type="submit">Artikel eintragen</button>
-                        </div>
-                    </div>
-
-                </form>
-
-            </div>
-            <!-- /.card -->
-
-        </div>
-        <!-- /.col-lg-9 -->
-
-    </div>
-
+    {% include page %}
 </div>
 <!-- /.container -->
 
@@ -126,8 +71,8 @@
 <script src="../popper/popper.min.js"></script>
 <script src="../bootstrap/js/bootstrap.js"></script>
 
-<script src="//cdn.jsdelivr.net/editor/0.1.0/editor.js"></script>
-<script src="//cdn.jsdelivr.net/editor/0.1.0/marked.js"></script>
+<script src="../editor/editor.js"></script>
+<script src="../editor/marked.js"></script>
 
 <!-- https://github.com/lepture/editor -->
 <script type="text/javascript">

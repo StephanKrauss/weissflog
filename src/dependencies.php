@@ -1,4 +1,6 @@
 <?php
+/***** Front *****/
+
 // Tools
 $container[\Parsedown::class] = function($c){
 	return new Parsedown();
@@ -11,7 +13,7 @@ $container[\App\Model\Category\Category::class] = function($c){
 	);
 };
 
-// Controller Front
+// Controller
 $container[\App\Controller\Start\StartController::class] = function($c){
 	return new \App\Controller\Start\StartController(
 		$c['view'],
@@ -20,11 +22,26 @@ $container[\App\Controller\Start\StartController::class] = function($c){
 	);
 };
 
+/***** Admin *****/
 
 
-// Controller Admin
+// Model
+$container[Admin\Model\Upload\Upload::class] = function($c)
+{
+	return new \Admin\Model\Upload\Upload();
+};
+
+$container[Admin\Model\Article\Article::class] = function($c)
+{
+	return new \Admin\Model\Article\Article(
+		$c[\Admin\Model\Upload\Upload::class]
+	);
+};
+
+// Controller
 $container[\Admin\Controller\Dashboard\DashboardController::class] = function($c){
 	return new \Admin\Controller\Dashboard\DashboardController(
-		$c['view']
+		$c['view'],
+		$c[Admin\Model\Article\Article::class]
 	);
 };
