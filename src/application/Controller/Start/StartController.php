@@ -15,11 +15,17 @@
 	class StartController
 	{
 		protected $view;
+		protected $modelCategoryContent = null;
+		protected $categories = [];
 
 		public function __construct(
-			\Slim\Views\Twig $view
+			\Slim\Views\Twig $view,
+			\App\Model\Category\Category $modelCategoryContent,
+			array $categories
 		) {
 			$this->view = $view;
+			$this->modelCategoryContent = $modelCategoryContent;
+			$this->categories = $categories;
 		}
 
 		public function __invoke(Request $request, Response $response, array $params)
@@ -27,13 +33,11 @@
 			try{
 				$templateVars = [];
 
-				$navigationModel = new \App\Model\Navigation\NavigationModel();
-				$templateVars['categories'] = $navigationModel->work()->getNavigation();
+				$templateVars['categories'] = $this->categories;
 
 				// Kopfnavigation
 				if( is_array($params) and (count($params) > 0) ){
 					$templateVars[$params['name']] = 'active';
-					$seite = $params['name'].".md";
 				}
 				else{
 					$templateVars['uebersicht'] = 'active';
@@ -42,7 +46,15 @@
 
 				if( $request->isGet() )
 				{
-					$templateVars = $this->get($seite, $templateVars);
+					$url = $request->getUri();
+					$path = $url->getPath();
+
+					if(strstr($path, 'seite'))
+						$templateVars = $this->getPage($params['name'], $templateVars);
+					elseif(strstr($path, 'kategorie'))
+						$templateVars = $this->getCategorie($params['name'], $templateVars);
+					else
+						throw new StartException('unbekannte Operation', 3);
 				}
 
 				return $this->view->render( $response, 'start.tpl', $templateVars);
@@ -60,11 +72,38 @@
 		 *
 		 * @return mixed
 		 */
-		protected function get($seite, $templateVars)
+		protected function getPage($seite, $templateVars)
 		{
-			$content = file_get_contents('page/'.$seite);
-			$parseDownParser = new \Parsedown();
-			$templateVars['page'] = $parseDownParser->text($content);
+			if(is_file('page/'.$seite)){
+				$content = file_get_contents('page/'.$seite.'.md');
+				$parseDownParser = new \Parsedown();
+				$templateVars['page'] = $parseDownParser->text($content);
+			}
+			else{
+				$content = file_get_contents('page/unknown.md');
+				$parseDownParser = new \Parsedown();
+				$templateVars['page'] = $parseDownParser->text($content);
+			}
+
+
+			return $templateVars;
+		}
+
+		/**
+		 * Gibt den Inhalt der Kategorie Markdown Files zurück
+		 *
+		 * @param $categorie
+		 *
+		 * @return array
+		 */
+		protected function getCategorie($categoryName, $templateVars)
+		{
+
+			$categorieContent = $this->modelCategoryContent;
+			$templateVars['page'] = $categorieContent
+				->setCategoryName($categoryName)
+				->work()
+				->getCategoryContent();
 
 			return $templateVars;
 		}

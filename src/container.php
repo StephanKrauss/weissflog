@@ -33,3 +33,26 @@
 				->write($errorMessage);
 		};
 	};
+
+	/**
+	 * vorhandene Kategorien
+	 *
+	 * @param $c
+	 *
+	 * @return array
+	 */
+	$container['categories'] = function($c)
+	{
+		$navigation = array(
+			array(
+				'link' => 'aaa',
+				'description' => 'AAA'
+			),
+			array(
+				'link' => 'bbb',
+				'description' => 'BBB'
+			)
+		);
+
+		return $navigation;
+	};

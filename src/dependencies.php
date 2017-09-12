@@ -1,22 +1,26 @@
 <?php
+// Tools
+$container[\Parsedown::class] = function($c){
+	return new Parsedown();
+};
+
+// Model Front
+$container[\App\Model\Category\Category::class] = function($c){
+	return new \App\Model\Category\Category(
+		$c[\Parsedown::class]
+	);
+};
 
 // Controller Front
 $container[\App\Controller\Start\StartController::class] = function($c){
 	return new \App\Controller\Start\StartController(
-		$c['view']
+		$c['view'],
+		$c[\App\Model\Category\Category::class],
+		$c['categories']
 	);
 };
 
-$container[\App\Controller\Kategorie\KategorieController::class] = function($c){
-	return new \App\Controller\Kategorie\KategorieController(
-		$c['view']
-	);
-};
 
-// Model Front
-$container[\App\Model\Navigation\NavigationModel::class] = function($c){
-	return new \App\Model\Navigation\NavigationModel();
-};
 
 // Controller Admin
 $container[\Admin\Controller\Dashboard\DashboardController::class] = function($c){

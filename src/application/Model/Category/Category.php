@@ -1,0 +1,146 @@
+<?php
+
+	namespace App\Model\Category;
+
+	/**
+	 * sichtet die Markdown Files einer Kategorie
+	 *
+	 * @author Stephan Krauß
+	 * @date 12.09.2017
+	 * @file Category.php
+	 */
+	class Category
+	{
+		protected $content = null;
+		protected $categoryName = null;
+		protected $markdownParser = null;
+
+		/**
+		 * Übernimmt den Namen der Kategorie
+		 * Category constructor.
+		 *
+		 * @param $categoryName
+		 * @param $markdownParser
+		 */
+		public function __construct(
+			\Parsedown $markdownParser
+		)
+		{
+			$this->markdownParser = $markdownParser;
+		}
+
+		public function setCategoryName($categoryName)
+		{
+			$this->categoryName = $categoryName;
+
+			return $this;
+		}
+
+		/**
+		 * steuert die Rückgabe der Inhalte einer Kategorie
+		 *
+		 * @throws \Throwable
+		 */
+		public function work()
+		{
+			try{
+				$markDownFiles = $this->findFiles($this->categoryName);
+				$unsortedMarkDownFiles = $this->readFileContent($this->categoryName, $this->markdownParser, $markDownFiles);
+				$this->content = $this->sortFileContent($unsortedMarkDownFiles);
+
+				return $this;
+			}
+			catch(\Throwable $e){
+				throw $e;
+			}
+		}
+
+		/**
+		 * sortiert den Inhalt der Kategorie
+
+		 *
+*@param array $markDownFiles
+		 *
+*@return mixed
+		 */
+		protected function sortFileContent(array $markDownFiles)
+		{
+			$content = '';
+
+			array_multisort($markDownFiles, SORT_ASC);
+
+			foreach($markDownFiles as $markDownFile){
+				$content .= "<p>";
+				$content .= $markDownFile['inhalt'];
+				$content .= "<img src='/images/bild.jpg' width='400' height='400'>";
+				$content .= "</p>";
+			}
+
+			return $content;
+		}
+
+		/**
+		 * sortiert die Markdown Files entsprechend der Makro - Information
+		 *
+		 * @param $categoryName
+		 * @param \Parsedown $markdownParser
+		 * @param $markDownFiles
+		 *
+		 * @return array
+		 */
+		protected function readFileContent($categoryName, \Parsedown $markdownParser, $markDownFiles)
+		{
+			$unsortedMarkDownFiles = [];
+
+			$i = 0;
+			foreach($markDownFiles as $markDownFile){
+				$fileContent = file('categorie/'.$categoryName.'/'.$markDownFile);
+
+				$unsortedMarkDownFiles[$i] = array(
+					'anzeige' => array_shift($fileContent),
+					'image' => $markDownFile
+				);
+
+				$text = '';
+				foreach($fileContent as $content){
+					$text .= $content;
+				}
+
+				$unsortedMarkDownFiles[$i]['inhalt'] = $markdownParser->text($text);
+
+				$i++;
+			}
+
+			return $unsortedMarkDownFiles;
+		}
+
+		/**
+		 * findet die Markdown Files einer Kategorie
+		 * 
+		 * @param $categoryName
+		 *
+		 * @return array
+		 */
+		protected function findFiles($categoryName)
+		{
+			$markDownFiles = [];
+
+			$files = scandir('categorie/'.$categoryName.'/');
+			foreach($files as $file) {
+			  if( ($file == '.') or ($file == '..') )
+			  	continue;
+
+				$markDownFiles[] = $file;
+			}
+
+			return $markDownFiles;
+		}
+
+		/**
+		 * @return text
+		 */
+		public function getCategoryContent()
+		{
+			return $this->content;
+		}
+	}

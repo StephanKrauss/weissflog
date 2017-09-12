@@ -7,7 +7,7 @@ $app->get('/' , $container[\App\Controller\Start\StartController::class]);
 $app->get('/seite/{name}' , $container[\App\Controller\Start\StartController::class]);
 
 // Front , Kategorieseiten
-$app->get('/kategorie/' , $container[\App\Controller\Kategorie\KategorieController::class]);
+$app->get('/kategorie/{name}' , $container[\App\Controller\Start\StartController::class]);
 
 // Admin , Dashboard
 $app->get('/admin/', $container[\Admin\Controller\Dashboard\DashboardController::class]);

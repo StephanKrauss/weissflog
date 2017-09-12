@@ -25,9 +25,6 @@
 		public function __invoke(Request $request, Response $response)
 		{
 			try{
-
-				$testgggg = "awfaasdadasdasd";
-
 				if( $request->isGet() )
 				{
 					$content = array(
