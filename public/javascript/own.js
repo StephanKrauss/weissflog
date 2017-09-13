@@ -3,12 +3,13 @@ $(document).ready(function(){
     var viewportWidth = $("body").innerWidth();
     var windowHeight = $(window).height();
 
-    if(windowHeight > 700){
-        $("#content").minHeight(500);
-    }
+    // if(windowHeight > 700){
+    //     $("#content").height(400);
+    // }
 
     if(viewportWidth < 400){
         $("#hauptnavigation").hide();
+        $("#banner").hide();
     }
 
     $(".icon").mouseover(function(){

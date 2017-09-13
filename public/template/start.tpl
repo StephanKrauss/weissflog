@@ -12,15 +12,12 @@
 
     <!-- Bootstrap core CSS -->
     <link href="/bootstrap/css/bootstrap.css" rel="stylesheet">
-    <link href="/bootstrap/css/bootstrap-grid.css" rel="stylesheet">
-    <link href="/bootstrap/css/bootstrap-reboot.css" rel="stylesheet">
 
     <!-- Lightbox -->
     <link href="/lightbox/featherlight.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
     <link href="/css/shop-item.css" rel="stylesheet">
-
 </head>
 
 <body>
@@ -56,7 +53,7 @@
 <!-- Page Content -->
 <div class="container">
     <div class="row">
-        <div class="col-md-3" id="hauptnavigation">
+        <div class="col-md-3 hauptnavigation" id="hauptnavigation">
             <div class="list-group">
                 {% for category in categories %}
                     <a href="/kategorie/{{category.link}}" class="list-group-item">{{category.description}}</a>
@@ -65,6 +62,9 @@
         </div>
 
         <div class="col-md-9" id="content">
+            <div class="col-md-3" id="banner">
+                <img src="/layout/second-hand.png">
+            </div>
             <div class="col-md-4">
                 {{page | raw}}
             </div>
@@ -84,6 +84,7 @@
 <!-- Bootstrap core JavaScript -->
 <script src="/jquery/jquery.min.js"></script>
 <script src="/bootstrap/js/bootstrap.js"></script>
+<script src="/popper/popper.js"></script>
 <script src="/lightbox/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
 <script src="/javascript/own.js"></script>
 
