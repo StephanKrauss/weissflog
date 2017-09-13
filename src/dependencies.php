@@ -42,6 +42,7 @@ $container[Admin\Model\Article\Article::class] = function($c)
 $container[\Admin\Controller\Dashboard\DashboardController::class] = function($c){
 	return new \Admin\Controller\Dashboard\DashboardController(
 		$c['view'],
-		$c[Admin\Model\Article\Article::class]
+		$c[Admin\Model\Article\Article::class],
+		$c['categories']
 	);
 };

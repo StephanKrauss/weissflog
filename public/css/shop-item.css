@@ -14,6 +14,22 @@ body {
     }
 }
 
+.icon{
+    padding: 20px;
+    border: solid 1px gray;
+    margin: 5px;
+}
+
+.hauptnavigation{
+    margin-top: 10px;
+}
+
+.kategoryLink{
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+}
+
 #fileselector {
     margin: 10px;
 }

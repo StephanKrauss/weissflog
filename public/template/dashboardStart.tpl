@@ -12,6 +12,17 @@
         <div class="card mt-4">
             <form method="post" action="/admin/">
                 <div class="form-group">
+                  <label class="col-md-4 control-label" for="input01">Kategorie*</label>
+                  <div class="col-md-6">
+                      <select name="category" class="col-md-4">
+                          {% for category in categories %}
+                              <option value="{{category.link}}">{{category.description}}</option>
+                          {% endfor %}
+                      </select>
+                  </div>
+                </div>
+
+                <div class="form-group">
                   <label class="col-md-4 control-label" for="input01">Überschrift*</label>
                   <div class="col-md-6">
                     <input placeholder="Überschrift" class="form-control input-md" pattern=".{3,}" type="text" name="ueberschrift" required>

@@ -11,7 +11,9 @@
     <title>meine Firma</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="/bootstrap/css/bootstrap-grid.css" rel="stylesheet">
+    <link href="/bootstrap/css/bootstrap-reboot.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
     <link href="/css/shop-item.css" rel="stylesheet">
@@ -50,28 +52,20 @@
 
 <!-- Page Content -->
 <div class="container">
-
     <div class="row">
-
-        <div class="col-lg-3">
+        <div class="col-md-3" id="hauptnavigation">
             <div class="list-group">
                 {% for category in categories %}
-                    <a href="{{category.link}}" class="list-group-item">{{category.description}}</a>
+                    <a href="/kategorie/{{category.link}}" class="list-group-item">{{category.description}}</a>
                 {% endfor %}
             </div>
         </div>
-        <!-- /.col-lg-3 -->
 
-        <div class="col-lg-9">
-
-            <div class="card mt-4">
+        <div class="col-md-9" id="content">
+            <div class="col-md-4">
                 {{page | raw}}
             </div>
-            <!-- /.card -->
-
         </div>
-        <!-- /.col-lg-9 -->
-
     </div>
 
 </div>
@@ -82,13 +76,13 @@
     <div class="container">
         <p class="m-0 text-center text-white">Copyright &copy; Your Website 2017</p>
     </div>
-    <!-- /.container -->
 </footer>
 
 <!-- Bootstrap core JavaScript -->
 <script src="/jquery/jquery.min.js"></script>
 <script src="/popper/popper.min.js"></script>
 <script src="/bootstrap/js/bootstrap.js"></script>
+<script src="/javascript/own.js"></script>
 
 </body>
 

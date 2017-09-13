@@ -19,6 +19,8 @@
 		protected $kurzbeschreibung = null;
 		protected $text = null;
 		protected $bild = null;
+		protected $time = null;
+		protected $category = null;
 
 		/**
 		 * Übernimmt den Uploader
@@ -71,6 +73,30 @@
 		}
 
 		/**
+		 * @param $time
+		 *
+		 * @return $this
+		 */
+		public function setTime($time)
+		{
+			$this->time = $time;
+
+			return $this;
+		}
+
+		/**
+		 * @param $category
+		 *
+		 * @return $this
+		 */
+		public function setCategory($category)
+		{
+			$this->category = $category;
+
+			return $this;
+		}
+
+		/**
 		 * @param null $bild
 		 *
 		 * @return Article
@@ -91,11 +117,35 @@
 		{
 			try{
 				$this->validate($this->ueberschrift, $this->kurzbeschreibung, $this->text);
+				$this->createMdFile($this->time, $this->category);
+
 
 			}
 			catch(\Throwable $e){
 				throw $e;
 			}
+		}
+
+		/**
+		 * schreibt die MD - Datei
+		 *
+		 * @param $time
+		 * @param $category
+		 *
+		 * @return int
+		 */
+		protected function createMdFile($time, $category)
+		{
+			$content = "1\n";
+			$content .= '##'.$this->ueberschrift."\n";
+			$content .= $this->kurzbeschreibung."\n";
+			$content .= $this->text;
+
+			$fp = fopen('categorie/'.$category.'/'.$time.'.md', 'w');
+			$control = fputs($fp, $content);
+			fclose($fp);
+
+			return $control;
 		}
 
 		/**

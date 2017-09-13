@@ -16,6 +16,7 @@
 	{
 		protected $view;
 		protected $modelArticle = null;
+		protected $categories = [];
 
 		/**
 		 * DashboardController constructor.
@@ -25,10 +26,12 @@
 		 */
 		public function __construct(
 			\Slim\Views\Twig $view,
-			\Admin\Model\Article\Article $modelArticle
+			\Admin\Model\Article\Article $modelArticle,
+			array $categories
 		) {
 			$this->view = $view;
 			$this->modelArticle = $modelArticle;
+			$this->categories = $categories;
 		}
 
 		public function __invoke(Request $request, Response $response, array $params)
@@ -38,13 +41,15 @@
 
 				if( $request->isGet() )
 				{
-					$twigParams = $this->get($twigParams);
+					$twigParams = $this->get($twigParams, $this->categories);
 
 					return $this->view->render( $response, 'dashboard.tpl', $twigParams);
 				}
 				elseif($request->isPost()){
 					$allPostVars = $request->getParsedBody();
-					$twigParams = $this->post($allPostVars, $twigParams);
+					$this->post($allPostVars);
+					$twigParams['categories'] = $this->categories;
+					$twigParams['page'] = 'dashboardStart.tpl';
 
 					return $this->view->render( $response, 'dashboard.tpl', $twigParams);
 				}
@@ -63,29 +68,30 @@
 		 *
 		 * @return array
 		 */
-		protected function post(array $params, array $twigParams)
+		protected function post(array $params)
 		{
 			$modelArticle = $this->modelArticle;
 			$modelArticle
 				->setUeberschrift($params['ueberschrift'])
 				->setKurzbeschreibung($params['kurzbeschreibung'])
 				->setText($params['text'])
+				->setTime(mktime())
+				->setCategory($params['category'])
 				->work();
 
-			$twigParams['page'] = 'dashboardStart.tpl';
-
-			return $twigParams;
+			return;
 		}
 
 		/**
 		 * Start Admin -Bereich
 		 */
-		protected function get(array $twigParams)
+		protected function get(array $twigParams, array $categories)
 		{
 			$twigParams = [
 				'wert1' => 'aaaaaaaaaa',
 				'wert2' => 'bbbbbbbbbb',
-				'page' => 'dashboardStart.tpl'
+				'page' => 'dashboardStart.tpl',
+				'categories' => $categories
 			];
 
 			return $twigParams;

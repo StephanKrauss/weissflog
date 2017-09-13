@@ -46,11 +46,13 @@
 		$navigation = array(
 			array(
 				'link' => 'aaa',
-				'description' => 'AAA'
+				'description' => 'AAA',
+				'image' => 'aaa.jpg'
 			),
 			array(
 				'link' => 'bbb',
-				'description' => 'BBB'
+				'description' => 'BBB',
+				'image' => 'bbb.jpg'
 			)
 		);
 

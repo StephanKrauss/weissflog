@@ -54,7 +54,7 @@
 					elseif(strstr($path, 'kategorie'))
 						$templateVars = $this->getCategorie($params['name'], $templateVars);
 					else
-						throw new StartException('unbekannte Operation', 3);
+						$templateVars = $this->getPage('uebersicht', $templateVars);
 				}
 
 				return $this->view->render( $response, 'start.tpl', $templateVars);
@@ -74,7 +74,16 @@
 		 */
 		protected function getPage($seite, $templateVars)
 		{
-			if(is_file('page/'.$seite)){
+			if($seite == 'uebersicht'){
+				// $templateVars['page'] = $this->view->fetch('startUebersicht.tpl', $this->categories);
+				// $templateVars['categories'] = $this->categories;
+				$icons = array(
+					'categories' => $this->categories
+				);
+
+				$templateVars['page'] = $this->view->fetch('startUebersicht.tpl', $icons);
+			}
+			elseif(is_file('page/'.$seite.".md")){
 				$content = file_get_contents('page/'.$seite.'.md');
 				$parseDownParser = new \Parsedown();
 				$templateVars['page'] = $parseDownParser->text($content);
@@ -84,7 +93,6 @@
 				$parseDownParser = new \Parsedown();
 				$templateVars['page'] = $parseDownParser->text($content);
 			}
-
 
 			return $templateVars;
 		}
