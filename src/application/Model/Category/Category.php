@@ -72,7 +72,17 @@
 			foreach($markDownFiles as $markDownFile){
 				$content .= "<p>";
 				$content .= $markDownFile['inhalt'];
-				$content .= "<img src='/images/bild.jpg' width='400' height='400'>";
+
+				$image = str_replace('.md', '.jpg', $markDownFile['image']);
+				$image = "images/".$image;
+
+				if(is_file($image)){
+					$content .= '<a href="/'.$image.'" data-featherlight="image">';
+					$content .= "<img src='/".$image."' width='75' height='75' style='float:left;' class='minibild'>";
+					$content .= '</a>';
+				}
+
+
 				$content .= "</p>";
 			}
 

@@ -2,6 +2,7 @@
 
 	namespace Admin\Model\Article;
 
+	use Admin\Controller\Dashboard\DashboardException;
 	use App\Controller\Start\StartException;
 
 	/**
@@ -13,14 +14,13 @@
 	 */
 	class Article
 	{
-		protected $modelUpload = null;
-
 		protected $ueberschrift = null;
 		protected $kurzbeschreibung = null;
 		protected $text = null;
 		protected $bild = null;
 		protected $time = null;
 		protected $category = null;
+		protected $position = 1;
 
 		/**
 		 * Übernimmt den Uploader
@@ -29,11 +29,9 @@
 		 *
 		 * @param $modelUploader
 		 */
-		public function __construct(
-			$modelUploader
-		)
+		public function __construct()
 		{
-			$this->modelUpload = $modelUploader;
+
 		}
 
 		/**
@@ -85,6 +83,18 @@
 		}
 
 		/**
+		 * @param $position
+		 *
+		 * @return $this
+		 */
+		public function setPosition($position)
+		{
+			$this->position = $position;
+
+			return $this;
+		}
+
+		/**
 		 * @param $category
 		 *
 		 * @return $this
@@ -117,9 +127,10 @@
 		{
 			try{
 				$this->validate($this->ueberschrift, $this->kurzbeschreibung, $this->text);
-				$this->createMdFile($this->time, $this->category);
+				$control = $this->createMdFile($this->time, $this->category);
 
-
+				if(!$control)
+					throw new DashboardException('Markdown file not geneate', 3);
 			}
 			catch(\Throwable $e){
 				throw $e;
@@ -136,7 +147,7 @@
 		 */
 		protected function createMdFile($time, $category)
 		{
-			$content = "1\n";
+			$content = $this->position."\n";
 			$content .= '##'.$this->ueberschrift."\n";
 			$content .= $this->kurzbeschreibung."\n";
 			$content .= $this->text;

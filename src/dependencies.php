@@ -33,9 +33,7 @@ $container[Admin\Model\Upload\Upload::class] = function($c)
 
 $container[Admin\Model\Article\Article::class] = function($c)
 {
-	return new \Admin\Model\Article\Article(
-		$c[\Admin\Model\Upload\Upload::class]
-	);
+	return new \Admin\Model\Article\Article();
 };
 
 // Controller
@@ -43,6 +41,7 @@ $container[\Admin\Controller\Dashboard\DashboardController::class] = function($c
 	return new \Admin\Controller\Dashboard\DashboardController(
 		$c['view'],
 		$c[Admin\Model\Article\Article::class],
-		$c['categories']
+		$c['categories'],
+		$c[Admin\Model\Upload\Upload::class]
 	);
 };

@@ -74,20 +74,21 @@
 		 */
 		protected function getPage($seite, $templateVars)
 		{
+			// Übersicht
 			if($seite == 'uebersicht'){
-				// $templateVars['page'] = $this->view->fetch('startUebersicht.tpl', $this->categories);
-				// $templateVars['categories'] = $this->categories;
 				$icons = array(
 					'categories' => $this->categories
 				);
 
 				$templateVars['page'] = $this->view->fetch('startUebersicht.tpl', $icons);
 			}
+			// statische Seiten
 			elseif(is_file('page/'.$seite.".md")){
 				$content = file_get_contents('page/'.$seite.'.md');
 				$parseDownParser = new \Parsedown();
 				$templateVars['page'] = $parseDownParser->text($content);
 			}
+			// Unbekannt
 			else{
 				$content = file_get_contents('page/unknown.md');
 				$parseDownParser = new \Parsedown();

@@ -10,13 +10,24 @@
 
     <div class="col-lg-9">
         <div class="card mt-4">
-            <form method="post" action="/admin/">
+            <form method="post" action="/admin/" enctype="multipart/form-data">
                 <div class="form-group">
                   <label class="col-md-4 control-label" for="input01">Kategorie*</label>
                   <div class="col-md-6">
                       <select name="category" class="col-md-4">
                           {% for category in categories %}
                               <option value="{{category.link}}">{{category.description}}</option>
+                          {% endfor %}
+                      </select>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-md-4 control-label" for="input01">Position*</label>
+                  <div class="col-md-6">
+                      <select name="position" class="col-md-2">
+                          {% for position in positionen %}
+                              <option value="{{position}}">{{position}}</option>
                           {% endfor %}
                       </select>
                   </div>
@@ -43,7 +54,7 @@
 
                 <div class="form-group">
                     <label class="btn btn-default">
-                        <button class="btn btn-warning" type="submit">Bild auswählen</button> <input type="file" hidden>
+                        <input class="btn btn-warning" type="file" name="artikelImage">
                     </label>
                 </div>
 

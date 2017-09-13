@@ -15,6 +15,9 @@
     <link href="/bootstrap/css/bootstrap-grid.css" rel="stylesheet">
     <link href="/bootstrap/css/bootstrap-reboot.css" rel="stylesheet">
 
+    <!-- Lightbox -->
+    <link href="/lightbox/featherlight.css" rel="stylesheet">
+
     <!-- Custom styles for this template -->
     <link href="/css/shop-item.css" rel="stylesheet">
 
@@ -80,8 +83,8 @@
 
 <!-- Bootstrap core JavaScript -->
 <script src="/jquery/jquery.min.js"></script>
-<script src="/popper/popper.min.js"></script>
 <script src="/bootstrap/js/bootstrap.js"></script>
+<script src="/lightbox/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
 <script src="/javascript/own.js"></script>
 
 </body>
