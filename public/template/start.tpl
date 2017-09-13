@@ -12,6 +12,8 @@
 
     <!-- Bootstrap core CSS -->
     <link href="/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="/bootstrap/css/mdb.css" rel="stylesheet">
+    <link href="/bootstrap/css/style.css" rel="stylesheet">
 
     <!-- Lightbox -->
     <link href="/lightbox/featherlight.css" rel="stylesheet">
@@ -23,9 +25,9 @@
 <body>
 
 <!-- Navigation -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+<nav class="navbar navbar-expand-lg brown bg-light fixed-top">
     <div class="container">
-        <a class="navbar-brand" href="#">Firmenlogo</a>
+        <a href="/"><img src="/layout/logo.jpg"></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
                 aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -75,7 +77,7 @@
 <!-- /.container -->
 
 <!-- Footer -->
-<footer class="py-5 bg-dark">
+<footer class="py-5 brown">
     <div class="container">
         <p class="m-0 text-center text-white">Copyright &copy; Your Website 2017</p>
     </div>
