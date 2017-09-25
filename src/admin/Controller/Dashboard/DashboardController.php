@@ -20,6 +20,7 @@
 		protected $categories = [];
 		protected $toolUpload = null;
 		protected $position = [1,2,3,4,5,6,7,8,9,10];
+		protected $flash;
 
 		/**
 		 * DashboardController constructor.
@@ -31,18 +32,26 @@
 			\Slim\Views\Twig $view,
 			\Admin\Model\Article\Article $modelArticle,
 			array $categories,
-			\Admin\Model\Upload\Upload $toolUpload
+			\Admin\Model\Upload\Upload $toolUpload,
+			\Slim\Flash\Messages $flash
 		) {
 			$this->view = $view;
 			$this->modelArticle = $modelArticle;
 			$this->categories = $categories;
 			$this->toolUpload = $toolUpload;
+			$this->flash = $flash;
 		}
 
 		public function __invoke(Request $request, Response $response, array $params)
 		{
 			try{
 				$twigParams = [];
+
+				// Fake Umlenkung zur Login Seite
+				$this->flash->addMessage('Message', 'Inhalt der Message');
+				$response->withStatus(302)->withHeader('Location', '/admin/login');
+
+				// exit();
 
 				if( $request->isGet() )
 				{

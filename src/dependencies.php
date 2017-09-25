@@ -42,6 +42,14 @@ $container[\Admin\Controller\Dashboard\DashboardController::class] = function($c
 		$c['view'],
 		$c[Admin\Model\Article\Article::class],
 		$c['categories'],
-		$c[Admin\Model\Upload\Upload::class]
+		$c[Admin\Model\Upload\Upload::class],
+		$c['flash']
+	);
+};
+
+// Login
+$container[\Admin\Controller\Login\LoginController::class] = function($c){
+	return new \Admin\Controller\Login\LoginController(
+		$c['flash']
 	);
 };
