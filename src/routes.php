@@ -13,5 +13,5 @@ $app->get('/kategorie/{name}' , $container[\App\Controller\Start\StartController
 $app->get('/admin/', $container[\Admin\Controller\Dashboard\DashboardController::class]);
 $app->post('/admin/', $container[\Admin\Controller\Dashboard\DashboardController::class]);
 
-// Admin Login
-$app->get('/admin/login', $container[\Admin\Controller\Login\LoginController::class]);
+// Admin , Login - Bereich
+$app->any('/admin/login', $container[\Admin\Controller\Login\LoginController::class]);

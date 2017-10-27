@@ -58,8 +58,3 @@
 
 		return $navigation;
 	};
-
-	// Authentication
-	$container['flash'] = function($c){
-		return new Slim\Flash\Messages();
-	};

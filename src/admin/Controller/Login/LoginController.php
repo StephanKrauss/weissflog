@@ -13,18 +13,15 @@
 	 */
 	class LoginController
 	{
-		protected $flash;
 
 		/**
 		 * LoginController constructor.
-		 *
-		 * @param \Slim\Flash\Messages $flash
 		 */
 		public function __construct(
-			\Slim\Flash\Messages $flash
+
 		)
 		{
-			$this->flash = $flash;
+			$test = 123;
 		}
 
 		public function __invoke(Request $request, Response $response, array $params)

@@ -21,6 +21,7 @@
 		protected $toolUpload = null;
 		protected $position = [1,2,3,4,5,6,7,8,9,10];
 		protected $flash;
+		protected $loginValue = 'dherkl2hz';
 
 		/**
 		 * DashboardController constructor.
@@ -32,14 +33,12 @@
 			\Slim\Views\Twig $view,
 			\Admin\Model\Article\Article $modelArticle,
 			array $categories,
-			\Admin\Model\Upload\Upload $toolUpload,
-			\Slim\Flash\Messages $flash
+			\Admin\Model\Upload\Upload $toolUpload
 		) {
 			$this->view = $view;
 			$this->modelArticle = $modelArticle;
 			$this->categories = $categories;
 			$this->toolUpload = $toolUpload;
-			$this->flash = $flash;
 		}
 
 		public function __invoke(Request $request, Response $response, array $params)
@@ -47,36 +46,65 @@
 			try{
 				$twigParams = [];
 
-				// Fake Umlenkung zur Login Seite
-				$this->flash->addMessage('Message', 'Inhalt der Message');
-				$response->withStatus(302)->withHeader('Location', '/admin/login');
 
-				// exit();
 
-				if( $request->isGet() )
-				{
-					$twigParams = $this->get($twigParams, $this->categories, $this->position);
+				// Login vorhanden
+				if($loginValue == $this->loginValue){
+					if( $request->isGet() )
+					{
+						// Dummy Params
+						$twigParams = $this->get($twigParams, $this->categories, $this->position);
 
-					return $this->view->render( $response, 'dashboard.tpl', $twigParams);
+						return $this->view->render( $response, 'dashboard.tpl', $twigParams);
+					}
+					elseif($request->isPost())
+					{
+						$allPostVars = $request->getParsedBody();
+
+
+						$allPostVars['time'] = mktime();
+
+						$uploadedFiles = $request->getUploadedFiles();
+
+						$this->post($allPostVars);
+
+						if( (is_array($uploadedFiles)) and (count($uploadedFiles) > 0) )
+							$filename = $this->upload($uploadedFiles, $allPostVars['time']);
+
+						$twigParams['categories'] = $this->categories;
+						$twigParams['page'] = 'dashboardStart.tpl';
+						$twigParams['positionen'] = $this->position;
+
+						return $this->view->render( $response, 'dashboard.tpl', $twigParams);
+					}
 				}
-				elseif($request->isPost()){
-					$allPostVars = $request->getParsedBody();
-					$allPostVars['time'] = mktime();
+				// kein Login vorhanden
+				else{
+					$twigParams = [];
 
-					$uploadedFiles = $request->getUploadedFiles();
+					if($request->isPost()){
+						$allPostVars = $request->getParsedBody();
 
-					$this->post($allPostVars);
+						// Passwort vorhanden
+						if(array_key_exists('passwort', $allPostVars)){
+							if($allPostVars['passwort'] == $this->loginValue){
+								$response = \Dflydev\FigCookies\FigResponseCookies::set($response, \Dflydev\FigCookies\SetCookie::create('login')
+								    ->withValue($this->loginValue)
+								    ->withPath('/')
+									->withHttpOnly(true)
+								);
 
-					if( (is_array($uploadedFiles)) and (count($uploadedFiles) > 0) )
-						$filename = $this->upload($uploadedFiles, $allPostVars['time']);
+								// Dummy Params
+								$twigParams = $this->get($twigParams, $this->categories, $this->position);
 
-					$twigParams['categories'] = $this->categories;
-					$twigParams['page'] = 'dashboardStart.tpl';
-					$twigParams['positionen'] = $this->position;
+								return $this->view->render( $response, 'dashboard.tpl', $twigParams);
+							}
+						}
+					}
 
-					return $this->view->render( $response, 'dashboard.tpl', $twigParams);
+					// kein Passwort vorhanden
+					return $this->view->render( $response, 'login.tpl', $twigParams);
 				}
-
 			}
 			catch(StartException $e){
 				throw $e;
@@ -94,8 +122,11 @@
 			if ($uploadedFile->getError() === UPLOAD_ERR_OK) {
 				$filename = move_uploaded_file($uploadedFile->file, 'images/'.$time.'.jpg');
 			}
-			else
-				throw new DashboardException('uploaded file not correct', 3);
+			else{
+				echo 'kein Artikelbild vorhanden !!!';
+				// throw new DashboardException('uploaded file not correct', 3);
+				exit();
+			}
 
 			return $filename;
 		}
