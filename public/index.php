@@ -16,8 +16,6 @@ if (PHP_SAPI == 'cli-server') {
 
 require __DIR__ . '/../vendor/autoload.php';
 
-session_start();
-
 // Instantiate the app
 $settings = require __DIR__ . '/../src/settings.php';
 $app = new \Slim\App($settings);
@@ -32,28 +30,6 @@ require __DIR__ . '/../src/dependencies.php';
 
 // Register routes
 require __DIR__ . '/../src/routes.php';
-
-// Middleware
-// require __DIR__ . '/../src/CheckAdmin.php';
-// $app->add( new CheckAdmin() );
-
-$app->add(function($request, $response, $next) use($settings){
-	$path = $request->getUri()->getPath();
-
-	if(strstr($path,'admin')){
-
-		// Ermittlung des Login - Cookie
-		$loginCookie = \Dflydev\FigCookies\FigRequestCookies::get($request, 'login');
-		$loginValue = $loginCookie->getValue();
-
-		// Login fehlt
-		if( $loginValue != $settings['login'] ){
-			$response->withStatus(200)->withHeader('Location', '/admin/login');
-		}
-	}
-
-	return $response;
-});
 
 // Run app
 $app->run();
