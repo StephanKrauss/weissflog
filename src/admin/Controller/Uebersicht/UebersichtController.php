@@ -53,7 +53,6 @@
 					return $this->view->render( $response, 'login.tpl', $twigParams);
 
 				return $this->view->render( $response, 'uebersicht.tpl', $twigParams);
-
 			}
 			catch(StartException $e){
 				throw $e;
