@@ -52,6 +52,8 @@
 				if(!$loginFlag)
 					return $this->view->render( $response, 'login.tpl', $twigParams);
 
+				$twigParams['page'] = 'uebersichtArtikel.tpl';
+
 				return $this->view->render( $response, 'uebersicht.tpl', $twigParams);
 			}
 			catch(StartException $e){

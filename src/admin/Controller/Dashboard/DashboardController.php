@@ -88,8 +88,6 @@
 					$twigParams['positionen'] = $this->position;
 				}
 
-				$twigParams['anlegen'] = 'active';
-
 				return $this->view->render( $response, 'dashboard.tpl', $twigParams);
 
 			}

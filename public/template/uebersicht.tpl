@@ -22,13 +22,13 @@
 <!-- Navigation -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <div class="container">
-        &nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;
     </div>
 </nav>
 
 <!-- Page Content -->
 <div class="container">
-    Inhalt
+    {% include page %}
 </div>
 <!-- /.container -->
 
