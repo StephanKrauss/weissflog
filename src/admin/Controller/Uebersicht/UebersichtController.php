@@ -15,6 +15,8 @@
 	 */
 	class UebersichtController
 	{
+		use \Admin\Tool\CheckLogin;
+
 		protected $view;
 		protected $loginValue = null;
 
@@ -43,6 +45,12 @@
 				$loginValueCookie = $loginCookie->getValue();
 
 				$loginFlag = false;
+
+				// Kontrolle Login
+				list($allPostVars, $response, $loginFlag) = $this->testLogin($request, $response, $loginValueCookie);
+
+				if(!$loginFlag)
+					return $this->view->render( $response, 'login.tpl', $twigParams);
 
 				return $this->view->render( $response, 'uebersicht.tpl', $twigParams);
 

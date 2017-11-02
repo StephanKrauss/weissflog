@@ -15,6 +15,8 @@
 	 */
 	class DashboardController
 	{
+		use \Admin\Tool\CheckLogin;
+
 		protected $view;
 		protected $modelArticle = null;
 		protected $categories = [];
@@ -56,7 +58,7 @@
 				$loginFlag = false;
 
 				// Kontrolle Login
-				list($allPostVars, $response, $loginFlag) = $this->checkLogin($request, $response, $loginValueCookie);
+				list($allPostVars, $response, $loginFlag) = $this->testLogin($request, $response, $loginValueCookie);
 
 				if(!$loginFlag)
 					return $this->view->render( $response, 'login.tpl', $twigParams);
@@ -170,39 +172,4 @@
 
 			return $response;
 		}
-
-		/**
-		 * kontrolliert den Login
-		 *
-		 * @param \Slim\Http\Request $request
-		 * @param \Slim\Http\Response $response
-		 * @param $loginValueCookie
-		 *
-		 * @return array
-		 */
-		protected function checkLogin(Request $request, Response $response, $loginValueCookie): array
-		{
-			$allPostVars = [];
-			$loginFlag = false;
-
-			if($loginValueCookie != $this->loginValue){
-				if($request->isPost()){
-					$allPostVars=$request->getParsedBody();
-
-					if(array_key_exists('passwort', $allPostVars)){
-						if($allPostVars['passwort'] == $this->loginValue){
-							$response=$this->setPasswortCookie($response);
-
-							$loginFlag = true;
-						}
-					}
-				}
-			}
-			else{
-				$loginFlag = true;
-			}
-
-			return [$allPostVars, $response, $loginFlag];
-		}
-
 	}
