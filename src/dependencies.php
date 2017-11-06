@@ -49,10 +49,11 @@ $container[\Admin\Controller\Dashboard\DashboardController::class] = function($c
 };
 
 // Controller Uebersicht
-	$container[\Admin\Controller\Uebersicht\UebersichtController::class] = function($c)  use($settings)
-	{
-		return new \Admin\Controller\Uebersicht\UebersichtController(
-			$c['view'],
-			$settings['login']
-		);
-	};
+$container[\Admin\Controller\Uebersicht\UebersichtController::class] = function($c)  use($settings)
+{
+	return new \Admin\Controller\Uebersicht\UebersichtController(
+		$c['view'],
+		$settings['login'],
+		$c['categories']
+	);
+};

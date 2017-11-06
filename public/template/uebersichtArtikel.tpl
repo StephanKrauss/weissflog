@@ -8,7 +8,26 @@
     </div>
 
     <div class="col-lg-9">
-        Tabelle der Artikel
-
+        <p>vorhandene Artikel:</p>
+        <table class="table table-bordered table-striped">
+            <thead>
+            <tr>
+                <th>Kategorie</th>
+                <th>Position</th>
+                <th>Beschreibung</th>
+                <th>löschen</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for eintrag in tabelle %}
+            <tr>
+                <td>{{eintrag.categorie}}</td>
+                <td>{{eintrag.position}}</td>
+                <td>{{eintrag.description}}</td>
+                <td><a href="/admin/uebersicht/{{eintrag.file}}">>> löschen <<</a></td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
     </div>
 </div>

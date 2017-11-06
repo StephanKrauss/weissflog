@@ -44,9 +44,9 @@
 		public function work()
 		{
 			try{
-				$markDownFiles = $this->findFiles($this->categoryName);
-				$unsortedMarkDownFiles = $this->readFileContent($this->categoryName, $this->markdownParser, $markDownFiles);
-				$this->content = $this->sortFileContent($unsortedMarkDownFiles);
+				 $files = $this->findFiles($this->categoryName);
+				 $unsortedMarkDownFiles = $this->readFileContent($this->categoryName, $this->markdownParser, $files);
+				 $this->content = $this->sortFileContent($unsortedMarkDownFiles);
 
 				return $this;
 			}
@@ -133,14 +133,18 @@
 		 */
 		protected function findFiles($categoryName)
 		{
-			$markDownFiles = [];
+			$markDownFiles=[];
 
-			$files = scandir('categorie/'.$categoryName.'/');
-			foreach($files as $file) {
-			  if( ($file == '.') or ($file == '..') )
-			  	continue;
+			$files=scandir('categorie/' . $categoryName . '/');
 
-				$markDownFiles[] = $file;
+			$i=0;
+			foreach($files as $file){
+				if(($file == '.') or ($file == '..'))
+					continue;
+
+				$markDownFiles[$i]=$file;
+
+				$i++;
 			}
 
 			return $markDownFiles;
