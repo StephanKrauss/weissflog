@@ -24,7 +24,7 @@
                 <td>{{eintrag.categorie}}</td>
                 <td>{{eintrag.position}}</td>
                 <td>{{eintrag.description}}</td>
-                <td><a href="/admin/uebersicht/{{eintrag.file}}">>> löschen <<</a></td>
+                <td><a href="/admin/uebersicht/{{eintrag.categorie}}/{{eintrag.file}}">>> löschen <<</a></td>
             </tr>
             {% endfor %}
             </tbody>

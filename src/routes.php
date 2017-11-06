@@ -14,4 +14,4 @@ $app->any('/admin/', $container[\Admin\Controller\Dashboard\DashboardController:
 	$app->any('/admin', $container[\Admin\Controller\Dashboard\DashboardController::class]);
 
 // Admin , Übersicht
-$app->any('/admin/uebersicht/', $container[\Admin\Controller\Uebersicht\UebersichtController::class]);
+$app->any('/admin/uebersicht/[{categorie}/{file}]', $container[\Admin\Controller\Uebersicht\UebersichtController::class]);

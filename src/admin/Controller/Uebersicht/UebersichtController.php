@@ -40,6 +40,10 @@
 		public function __invoke(Request $request, Response $response, array $params)
 		{
 			try{
+				// löschen Artikel
+				if(count($params) == 2)
+					$this->deleteArticle($params);
+
 				// ermitteln Startparams
 				$twigParams = [];
 
@@ -55,11 +59,8 @@
 				if(!$loginFlag)
 					return $this->view->render( $response, 'login.tpl', $twigParams);
 
-				$allArticle = new \Admin\Model\AllArticle\AllArticle();
-				$table = $allArticle
-					->setCategories($this->categories)
-					->work()
-					->getAllArticles();
+				$table = $this->findAllArticles();
+
 
 				$twigParams['tabelle'] = $table;
 				$twigParams['page'] = 'uebersichtArtikel.tpl';
@@ -69,5 +70,37 @@
 			catch(StartException $e){
 				throw $e;
 			}
+		}
+
+		protected function deleteArticle($params)
+		{
+			if(array_key_exists('categorie', $params)){
+				if(array_key_exists('file', $params)){
+					$dir = __DIR__;
+					$path = realpath($dir.'../../../../../public/categorie/'.$params['categorie'].'/');
+					$file = $path . '/' . $params['file'] . '.md';
+
+					$kontrolle = unlink($file);
+				}
+			}
+
+			return;
+		}
+
+		/**
+		 * findet alle vorhandene Artikel
+		 *
+		 * @return array
+		 */
+		protected function findAllArticles()
+		{
+			$allArticle = new \Admin\Model\AllArticle\AllArticle();
+
+			$table = $allArticle
+				->setCategories($this->categories)
+				->work()
+				->getAllArticles();
+
+			return $table;
 		}
 	}

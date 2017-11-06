@@ -39,7 +39,7 @@
 			try{
 
 				$allCategorieFiles = $this->findCategorieFiles();
-				$this->allArticles = $allCategorieFiles;
+				$this->allArticles = $this->sortTable($allCategorieFiles);
 
 				return $this;
 			}
@@ -47,6 +47,19 @@
 				throw $e;
 			}
 		}
+
+		protected function sortTable($allCategorieFiles)
+		{
+			foreach($allCategorieFiles as $key => $value){
+				$kategorie[$key] = $value['categorie'];
+				$position[$key] = $value['position'];
+			}
+
+			array_multisort( $kategorie, SORT_ASC, $position, SORT_ASC, $allCategorieFiles );
+
+			return $allCategorieFiles;
+		}
+
 
 		/**
 		 * @return array
