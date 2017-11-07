@@ -16,7 +16,7 @@
                 <th>Position</th>
                 <th>Beschreibung</th>
                 <th>löschen</th>
-                <th>bearbeiten</th>
+                <th>duplizieren</th>
             </tr>
             </thead>
             <tbody>
@@ -26,7 +26,7 @@
                 <td>{{eintrag.position}}</td>
                 <td>{{eintrag.description}}</td>
                 <td><a href="/admin/uebersicht/{{eintrag.categorie}}/{{eintrag.file}}">>> löschen <<</a></td>
-                <td><a href="#">>> bearbeiten <<</a></td>
+                <td><a href="/admin/einzel/{{eintrag.categorie}}/{{eintrag.file}}">>> duplizieren <<</a></td>
             </tr>
             {% endfor %}
             </tbody>

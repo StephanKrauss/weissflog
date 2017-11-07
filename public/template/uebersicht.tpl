@@ -15,6 +15,9 @@
 
     <!-- Custom styles for this template -->
     <link href="/../css/shop-item.css" rel="stylesheet">
+
+    <!-- Markdown -->
+    <link rel="stylesheet" href="/../editor/editor.css">
 </head>
 
 <body>
@@ -44,6 +47,17 @@
 <script src="/../jquery/jquery.min.js"></script>
 <script src="/../popper/popper.min.js"></script>
 <script src="/../bootstrap/js/bootstrap.js"></script>
+
+<script src="/../editor/editor.js"></script>
+<script src="/../editor/marked.js"></script>
+
+<!-- https://github.com/lepture/editor -->
+<script type="text/javascript">
+    $(document).ready(function () {
+        var editor = new Editor();
+        editor.render();
+    });
+</script>
 
 </body>
 
