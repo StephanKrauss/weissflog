@@ -14,6 +14,7 @@
 		protected $content = null;
 		protected $categoryName = null;
 		protected $markdownParser = null;
+		protected $categories = array();
 
 		/**
 		 * Übernimmt den Namen der Kategorie
@@ -32,6 +33,13 @@
 		public function setCategoryName($categoryName)
 		{
 			$this->categoryName = $categoryName;
+
+			return $this;
+		}
+
+		public function setCategories($categories)
+		{
+			$this->categories = $categories;
 
 			return $this;
 		}
@@ -67,6 +75,8 @@
 		{
 			$content = '';
 
+			$content = $this->categorieSign($this->categories, $this->categoryName, $content);
+
 			array_multisort($markDownFiles, SORT_ASC);
 
 			foreach($markDownFiles as $markDownFile){
@@ -84,6 +94,29 @@
 
 
 				$content .= "</p>";
+			}
+
+			return $content;
+		}
+
+		/**
+		 * kennzeichnet die Kategorie
+		 *
+		 * @param $categories
+		 * @param $categoryName
+		 * @param $content
+		 *
+		 * @return string
+		 */
+		protected function categorieSign($categories, $categoryName, $content)
+		{
+			for($i=0; $i < count($categories); $i++){
+				if($categories[$i]['link'] == $categoryName){
+					$content .= "<img src='/buttons/".$categories[$i]['image']."'>";
+					$content .= "<h2>Kategorie: ".$categories[$i]['description']."</h2>";
+
+					break;
+				}
 			}
 
 			return $content;
