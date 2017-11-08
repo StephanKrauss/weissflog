@@ -1,18 +1,6 @@
 $(document).ready(function(){
-
-    var viewportWidth = $("body").innerWidth();
-    var windowHeight = $(window).height();
-
-    if(windowHeight > 700){
-        $("#content").minHeight(500);
-    }
-
-    if(viewportWidth < 400){
-        $("#hauptnavigation").hide();
-    }
-
     $(".icon").mouseover(function(){
-        $(this).css("background-color", "gray");
+        $(this).css("background-color", "#f0f0f5");
     });
 
     $(".icon").mouseout(function(){
@@ -20,11 +8,12 @@ $(document).ready(function(){
     });
 
     $(".list-group-item").mouseover(function(){
-
         $(this).css("background-color", "chocolate");
+        $(this).css("color", "white");
     });
 
     $(".list-group-item").mouseout(function(){
         $(this).css("background-color", "white");
+        $(this).css("color", "#007BFF");
     });
 });

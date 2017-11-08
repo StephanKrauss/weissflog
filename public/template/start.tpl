@@ -27,7 +27,7 @@
     <!-- Page Content -->
     <div class="container">
         <div class="row my-navbar d-none d-md-block">
-            <a class="firmenlogo" href="/">meine Firma</a>
+            <a class="firmenlogo d-none d-lg-block" href="/">meine Firma</a>
             <div id="navcontainer">
                 <ul>
                     <li class=" {{uebersicht}}">
@@ -88,7 +88,9 @@
 
 <!-- Bootstrap core JavaScript -->
 <script src="/jquery/jquery.min.js"></script>
+<script src="/popper/popper.min.js"></script>
 <script src="/bootstrap/js/bootstrap.js"></script>
+
 <script src="/lightbox/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
 <script src="/javascript/own.js"></script>
 

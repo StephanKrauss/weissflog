@@ -46,7 +46,7 @@
 		$navigation = array(
 			array(
 				'link' => 'elektronik',
-				'description' => 'elektronische Geräte',
+				'description' => 'Elektronik',
 				'image' => 'elektronik.jpg'
 			),
 			array(
