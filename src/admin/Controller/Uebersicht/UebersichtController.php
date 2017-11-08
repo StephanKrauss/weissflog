@@ -61,7 +61,6 @@
 
 				$table = $this->findAllArticles();
 
-
 				$twigParams['tabelle'] = $table;
 				$twigParams['page'] = 'uebersichtArtikel.tpl';
 
