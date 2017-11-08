@@ -5,17 +5,17 @@
  */
 
 body {
-    padding-top: 54px;
+    padding-top: 20px;
 }
 
 @media (min-width: 992px) {
     body {
-        padding-top: 56px;
+        padding-top: 20px;
     }
 }
 
 .icon{
-    padding: 20px;
+    padding: 5px;
     border: solid 1px gray;
     margin: 5px;
 }
@@ -42,4 +42,58 @@ body {
 
 .minibild{
     margin: 10px;
+}
+
+.my-navbar{
+    height: 150px;
+    background-image: url("/images/banner.jpg");
+    background-repeat: no-repeat;
+    padding-bottom: 20px;
+}
+
+#navcontainer{
+    position: relative;
+    top: -10px;
+}
+
+#navcontainer ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    text-align: center;
+}
+
+#navcontainer ul li {
+    display: inline;
+}
+
+#navcontainer ul li a {
+    text-decoration: none;
+    padding: .2em 1em;
+    color: #fff;
+    background-color: #007BFF;
+}
+
+#navcontainer ul li a:hover {
+    color: #fff;
+    background-color: #007BFF;
+}
+
+.firmenlogo{
+    color: #007BFF;
+    width: 200px;
+    height: 50px;
+    padding-left: 20px;
+    font-size: x-large;
+    font-weight: bolder;
+    opacity: 0.5;
+    background-color: #CCFFFF;
+    margin-right: 30px;
+    border: solid 1px #007BFF;
+}
+
+.hilfsnavi{
+    padding: 10px;
+    background-color: #CCFFFF;
+    border: 1px solid #007BFF;
 }
