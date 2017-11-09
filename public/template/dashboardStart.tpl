@@ -2,8 +2,8 @@
 
     <div class="col-lg-3">
         <div class="list-group">
-            <a href="#" class="list-group-item active">Artikel anlegen</a>
-            <a href="#" class="list-group-item">Artikel Übersicht</a>
+            <a href="/admin/" class="list-group-item active">Artikel anlegen</a>
+            <a href="/admin/uebersicht/" class="list-group-item">Artikel Übersicht</a>
         </div>
     </div>
     <!-- /.col-lg-3 -->
@@ -70,6 +70,5 @@
         <!-- /.card -->
 
     </div>
-    <!-- /.col-lg-9 -->
 
 </div>

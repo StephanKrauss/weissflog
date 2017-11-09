@@ -1,7 +1,7 @@
 <?php
 
 // Front , Startseite
-$app->get('/' , $container[\App\Controller\Start\StartController::class]);
+$app->any('/' , $container[\App\Controller\Start\StartController::class]);
 
 // Front , statische Seiten
 $app->get('/seite/{name}' , $container[\App\Controller\Start\StartController::class]);
@@ -10,5 +10,11 @@ $app->get('/seite/{name}' , $container[\App\Controller\Start\StartController::cl
 $app->get('/kategorie/{name}' , $container[\App\Controller\Start\StartController::class]);
 
 // Admin , Dashboard
-$app->get('/admin/', $container[\Admin\Controller\Dashboard\DashboardController::class]);
-$app->post('/admin/', $container[\Admin\Controller\Dashboard\DashboardController::class]);
+$app->any('/admin/', $container[\Admin\Controller\Dashboard\DashboardController::class]);
+$app->any('/admin', $container[\Admin\Controller\Dashboard\DashboardController::class]);
+
+// Admin , Übersicht
+$app->any('/admin/uebersicht/[{categorie}/{file}]', $container[\Admin\Controller\Uebersicht\UebersichtController::class]);
+
+// Admin einzelner Artikel
+$app->any('/admin/einzel/[{categorie}/{file}]', $container[\Admin\Controller\Einzel\EinzelController::class]);

@@ -45,14 +45,44 @@
 	{
 		$navigation = array(
 			array(
-				'link' => 'aaa',
-				'description' => 'AAA',
-				'image' => 'aaa.jpg'
+				'link' => 'elektronik',
+				'description' => 'Elektronik',
+				'image' => 'elektronik.jpg'
 			),
 			array(
-				'link' => 'bbb',
-				'description' => 'BBB',
-				'image' => 'bbb.jpg'
+				'link' => 'phone',
+				'description' => 'Handy',
+				'image' => 'phone.jpg'
+			),
+			array(
+				'link' => 'bike',
+				'description' => 'Fahrräder',
+				'image' => 'bike.jpg'
+			),
+			array(
+				'link' => 'moebel',
+				'description' => 'Möbel',
+				'image' => 'moebel.jpg'
+			),
+			array(
+				'link' => 'books',
+				'description' => 'Bücher',
+				'image' => 'books.jpg'
+			),
+			array(
+				'link' => 'lamp',
+				'description' => 'Lampen',
+				'image' => 'lamp.jpg'
+			),
+			array(
+				'link' => 'toy',
+				'description' => 'Spielzeug',
+				'image' => 'toy.jpg'
+			),
+			array(
+				'link' => 'pot',
+				'description' => 'Haushaltwaren',
+				'image' => 'pot.jpg'
 			)
 		);
 

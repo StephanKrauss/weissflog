@@ -5,16 +5,10 @@
                 <div class="focus-border">
                     <div class="focus-layout">
                         <div class="focus-image"><img src="/buttons/{{category.image}}"></div>
-                        <h4 class="clrchg">{{category.description}}</h4>
+                        <span class="kategoryLink">{{category.description}}</span>
                     </div>
                 </div>
             </a>
         </div>
     {% endfor %}
-
-
-
-
-
-
 </div>

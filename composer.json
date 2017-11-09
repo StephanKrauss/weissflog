@@ -16,24 +16,14 @@
         "slim/slim": "^3.1",
         "slim/twig-view": "^2.2",
         "slim/pdo": "^1.10",
-        "erusev/parsedown": "^1.6.3"
-    },
-    "require-dev": {
-        "phpmd/phpmd": "~2.6",
-        "phpstan/phpstan": "~0.8",
-        "phpunit/phpunit": "~6.3",
-        "mockery/mockery": "~0.9",
-        "phpmetrics/phpmetrics": "~1.10"
+        "erusev/parsedown": "^1.6.3",
+        "slim/flash": "^0.2.0",
+        "dflydev/fig-cookies": "~1.0"
     },
     "autoload-dev": {
         "psr-4": {
             "App\\": "src/application",
             "Admin\\": "src/admin"
         }
-    },
-    "scripts": {
-        "phpmetrics": "c:/xampp/htdocs/weissflog1/vendor/bin/phpmetrics.bat --report-html metrics.html src/",
-        "phpstan": "C:/xampp/htdocs/weissflog1/vendor/bin/phpstan.bat analyse -l 6 src/",
-        "inspections": "C:/Program Files (x86)/JetBrains/PhpStorm 2016.3.2/bin/inspect.bat c:/xampp/htdocs/weissflog/src/"
     }
 }

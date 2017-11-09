@@ -14,6 +14,7 @@
 		protected $content = null;
 		protected $categoryName = null;
 		protected $markdownParser = null;
+		protected $categories = array();
 
 		/**
 		 * Übernimmt den Namen der Kategorie
@@ -36,6 +37,13 @@
 			return $this;
 		}
 
+		public function setCategories($categories)
+		{
+			$this->categories = $categories;
+
+			return $this;
+		}
+
 		/**
 		 * steuert die Rückgabe der Inhalte einer Kategorie
 		 *
@@ -44,9 +52,9 @@
 		public function work()
 		{
 			try{
-				$markDownFiles = $this->findFiles($this->categoryName);
-				$unsortedMarkDownFiles = $this->readFileContent($this->categoryName, $this->markdownParser, $markDownFiles);
-				$this->content = $this->sortFileContent($unsortedMarkDownFiles);
+				 $files = $this->findFiles($this->categoryName);
+				 $unsortedMarkDownFiles = $this->readFileContent($this->categoryName, $this->markdownParser, $files);
+				 $this->content = $this->sortFileContent($unsortedMarkDownFiles);
 
 				return $this;
 			}
@@ -67,23 +75,54 @@
 		{
 			$content = '';
 
+			$content = $this->categorieSign($this->categories, $this->categoryName, $content);
+
 			array_multisort($markDownFiles, SORT_ASC);
 
 			foreach($markDownFiles as $markDownFile){
-				$content .= "<p>";
-				$content .= $markDownFile['inhalt'];
+				$content .= "<div class='row'>";
 
-				$image = str_replace('.md', '.jpg', $markDownFile['image']);
-				$image = "images/".$image;
+					$content .= "<div class='col-md-6'>";
+						$content .= $markDownFile['inhalt'];
+					$content .= "</div>";
 
-				if(is_file($image)){
-					$content .= '<a href="/'.$image.'" data-featherlight="image">';
-					$content .= "<img src='/".$image."' width='75' height='75' style='float:left;' class='minibild'>";
-					$content .= '</a>';
+					$image = str_replace('.md', '.jpg', $markDownFile['image']);
+					$image = "images/".$image;
+
+					if(is_file($image)){
+						$content .= "<div class='col-md-3'>";
+							$content .= '<a href="/'.$image.'" data-featherlight="image">';
+							$content .= "<img style='float:right;' src='/".$image."' width='75' height='75' class='minibild'>";
+							$content .= '</a>';
+						$content .= "</div>";
+					}
+
+				$content .= "</div>";
+			}
+
+			return $content;
+		}
+
+		/**
+		 * kennzeichnet die Kategorie
+		 *
+		 * @param $categories
+		 * @param $categoryName
+		 * @param $content
+		 *
+		 * @return string
+		 */
+		protected function categorieSign($categories, $categoryName, $content)
+		{
+			for($i=0; $i < count($categories); $i++){
+				if($categories[$i]['link'] == $categoryName){
+					$content .= "<br>";
+					$content .= "<img src='/buttons/".$categories[$i]['image']."'> ";
+					$content .= "<h2> Kategorie: ".$categories[$i]['description']."</h2>";
+					$content .= "<br>";
+
+					break;
 				}
-
-
-				$content .= "</p>";
 			}
 
 			return $content;
@@ -133,14 +172,18 @@
 		 */
 		protected function findFiles($categoryName)
 		{
-			$markDownFiles = [];
+			$markDownFiles=[];
 
-			$files = scandir('categorie/'.$categoryName.'/');
-			foreach($files as $file) {
-			  if( ($file == '.') or ($file == '..') )
-			  	continue;
+			$files=scandir('categorie/' . $categoryName . '/');
 
-				$markDownFiles[] = $file;
+			$i=0;
+			foreach($files as $file){
+				if(($file == '.') or ($file == '..'))
+					continue;
+
+				$markDownFiles[$i]=$file;
+
+				$i++;
 			}
 
 			return $markDownFiles;

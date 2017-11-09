@@ -9,4 +9,5 @@ return [
             'template_path' => __DIR__ . '/../templates/',
         ]
     ],
+	'login' => 'dherkl2hz'
 ];

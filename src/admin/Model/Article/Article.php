@@ -148,7 +148,7 @@
 		protected function createMdFile($time, $category)
 		{
 			$content = $this->position."\n";
-			$content .= '##'.$this->ueberschrift."\n";
+			$content .= '###'.$this->ueberschrift."\n";
 			$content .= $this->kurzbeschreibung."\n";
 			$content .= $this->text;
 

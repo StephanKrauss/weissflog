@@ -23,34 +23,11 @@
 
 <body>
 
-<!-- Navigation -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-    <div class="container">
-        <a class="navbar-brand" href="#">Artikel anlegen</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
-                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">Home
-                        <span class="sr-only">(current)</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">About</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Services</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Contact</a>
-                </li>
-            </ul>
-        </div>
+<div class="row">
+    <div class="col-md-12 admin-row text-center">
+        &nbsp;
     </div>
-</nav>
+</div>
 
 <!-- Page Content -->
 <div class="container">
@@ -59,12 +36,11 @@
 <!-- /.container -->
 
 <!-- Footer -->
-<footer class="py-5 bg-dark">
-    <div class="container">
-        <p class="m-0 text-center text-white">Copyright &copy; Your Website 2017</p>
+<div class="row">
+    <div class="col-md-12 admin-row text-center">
+        Programmierung: <a href="http://www.stephankrauss.de" target="_blank" style="color: white">Stephan Krauß</a>
     </div>
-    <!-- /.container -->
-</footer>
+</div>
 
 <!-- Bootstrap core JavaScript -->
 <script src="../jquery/jquery.min.js"></script>

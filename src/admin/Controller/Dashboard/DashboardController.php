@@ -15,11 +15,15 @@
 	 */
 	class DashboardController
 	{
+		use \Admin\Tool\CheckLogin;
+
 		protected $view;
 		protected $modelArticle = null;
 		protected $categories = [];
 		protected $toolUpload = null;
 		protected $position = [1,2,3,4,5,6,7,8,9,10];
+		protected $flash;
+		protected $loginValue = null;
 
 		/**
 		 * DashboardController constructor.
@@ -31,28 +35,46 @@
 			\Slim\Views\Twig $view,
 			\Admin\Model\Article\Article $modelArticle,
 			array $categories,
-			\Admin\Model\Upload\Upload $toolUpload
+			\Admin\Model\Upload\Upload $toolUpload,
+			$login
 		) {
 			$this->view = $view;
 			$this->modelArticle = $modelArticle;
 			$this->categories = $categories;
 			$this->toolUpload = $toolUpload;
+			$this->loginValue = $login;
 		}
 
 		public function __invoke(Request $request, Response $response, array $params)
 		{
 			try{
+				// ermitteln Startparams
 				$twigParams = [];
 
-				if( $request->isGet() )
-				{
-					$twigParams = $this->get($twigParams, $this->categories, $this->position);
+				// bestimmen des Login - Cookie
+				$loginCookie = \Dflydev\FigCookies\FigRequestCookies::get($request, 'login');
+				$loginValueCookie = $loginCookie->getValue();
 
-					return $this->view->render( $response, 'dashboard.tpl', $twigParams);
+				$loginFlag = false;
+
+				// Kontrolle Login
+				list($allPostVars, $response, $loginFlag) = $this->testLogin($request, $response, $loginValueCookie);
+
+				if(!$loginFlag)
+					return $this->view->render( $response, 'login.tpl', $twigParams);
+
+				// Erststart
+				if( ( $request->isGet() ) or ( array_key_exists('passwort', $allPostVars ))  )
+				{
+					// Dummy Params
+					$twigParams = $this->erststart($twigParams, $this->categories, $this->position);
 				}
-				elseif($request->isPost()){
+				// eintragen
+				elseif($request->isPost())
+				{
 					$allPostVars = $request->getParsedBody();
-					$allPostVars['time'] = mktime();
+
+					$allPostVars['time'] = time();
 
 					$uploadedFiles = $request->getUploadedFiles();
 
@@ -64,9 +86,9 @@
 					$twigParams['categories'] = $this->categories;
 					$twigParams['page'] = 'dashboardStart.tpl';
 					$twigParams['positionen'] = $this->position;
-
-					return $this->view->render( $response, 'dashboard.tpl', $twigParams);
 				}
+
+				return $this->view->render( $response, 'dashboard.tpl', $twigParams);
 
 			}
 			catch(StartException $e){
@@ -85,8 +107,9 @@
 			if ($uploadedFile->getError() === UPLOAD_ERR_OK) {
 				$filename = move_uploaded_file($uploadedFile->file, 'images/'.$time.'.jpg');
 			}
-			else
-				throw new DashboardException('uploaded file not correct', 3);
+			else{
+				$filename = false;
+			}
 
 			return $filename;
 		}
@@ -117,11 +140,9 @@
 		/**
 		 * Start Admin -Bereich
 		 */
-		protected function get(array $twigParams, array $categories,array $position)
+		protected function erststart(array $twigParams, array $categories,array $position)
 		{
 			$twigParams = [
-				'wert1' => 'aaaaaaaaaa',
-				'wert2' => 'bbbbbbbbbb',
 				'page' => 'dashboardStart.tpl',
 				'categories' => $categories,
 				'positionen' => $position
@@ -130,4 +151,23 @@
 			return $twigParams;
 		}
 
+		/**
+		 * setzen des Login Cookie
+		 *
+		 * @param \Slim\Http\Response $response
+		 *
+		 * @return \Psr\Http\Message\ResponseInterface|\Slim\Http\Response
+		 */
+		protected function setPasswortCookie(Response $response)
+		{
+			$response = \Dflydev\FigCookies\FigResponseCookies::set(
+				$response,
+				\Dflydev\FigCookies\SetCookie::create('login')
+					->withValue($this->loginValue)
+					->withPath('/')
+					->withHttpOnly(true)
+			);
+
+			return $response;
+		}
 	}

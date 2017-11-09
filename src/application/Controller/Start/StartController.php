@@ -86,12 +86,14 @@
 			elseif(is_file('page/'.$seite.".md")){
 				$content = file_get_contents('page/'.$seite.'.md');
 				$parseDownParser = new \Parsedown();
+
 				$templateVars['page'] = $parseDownParser->text($content);
 			}
 			// Unbekannt
 			else{
 				$content = file_get_contents('page/unknown.md');
 				$parseDownParser = new \Parsedown();
+
 				$templateVars['page'] = $parseDownParser->text($content);
 			}
 
@@ -109,8 +111,10 @@
 		{
 
 			$categorieContent = $this->modelCategoryContent;
+
 			$templateVars['page'] = $categorieContent
 				->setCategoryName($categoryName)
+				->setCategories($this->categories)
 				->work()
 				->getCategoryContent();
 

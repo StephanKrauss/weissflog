@@ -36,12 +36,34 @@ $container[Admin\Model\Article\Article::class] = function($c)
 	return new \Admin\Model\Article\Article();
 };
 
-// Controller
-$container[\Admin\Controller\Dashboard\DashboardController::class] = function($c){
+// Controller Dashboard
+$container[\Admin\Controller\Dashboard\DashboardController::class] = function($c)  use($settings)
+{
 	return new \Admin\Controller\Dashboard\DashboardController(
 		$c['view'],
 		$c[Admin\Model\Article\Article::class],
 		$c['categories'],
-		$c[Admin\Model\Upload\Upload::class]
+		$c[Admin\Model\Upload\Upload::class],
+		$settings['login']
+	);
+};
+
+// Controller Uebersicht
+$container[\Admin\Controller\Uebersicht\UebersichtController::class] = function($c) use($settings)
+{
+	return new \Admin\Controller\Uebersicht\UebersichtController(
+		$c['view'],
+		$settings['login'],
+		$c['categories']
+	);
+};
+
+// Controller einzelner Artikel
+$container[\Admin\Controller\Einzel\EinzelController::class] = function($c) use($settings)
+{
+	return new \Admin\Controller\Einzel\EinzelController(
+		$c['view'],
+		$settings['login'],
+		$c['categories']
 	);
 };
