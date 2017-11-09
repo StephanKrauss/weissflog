@@ -79,7 +79,7 @@
 
         <div class="row justify-content-md-center">
             <div class="col col-md-6">
-                Copyright Stephan Krauss
+                Programmierung: <a href="http://www.stephankrauss.de" target="_blank">Stephan Krauß</a>
             </div>
         </div>
 

@@ -93,7 +93,8 @@
 						'categorie' => $this->categories[$i]['link'],
 						'position' => $content[0],
 						'file' => substr($file,0,-3),
-						'description' => str_replace('#', '', $content[1])
+						'description' => str_replace('#', '', $content[1]),
+						'darstellung' => $this->categories[$i]['description']
 					);
 
 					$j++;

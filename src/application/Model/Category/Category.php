@@ -80,20 +80,24 @@
 			array_multisort($markDownFiles, SORT_ASC);
 
 			foreach($markDownFiles as $markDownFile){
-				$content .= "<p>";
-				$content .= $markDownFile['inhalt'];
+				$content .= "<div class='row'>";
 
-				$image = str_replace('.md', '.jpg', $markDownFile['image']);
-				$image = "images/".$image;
+					$content .= "<div class='col-md-6'>";
+						$content .= $markDownFile['inhalt'];
+					$content .= "</div>";
 
-				if(is_file($image)){
-					$content .= '<a href="/'.$image.'" data-featherlight="image">';
-					$content .= "<img src='/".$image."' width='75' height='75' style='float:left;' class='minibild'>";
-					$content .= '</a>';
-				}
+					$image = str_replace('.md', '.jpg', $markDownFile['image']);
+					$image = "images/".$image;
 
+					if(is_file($image)){
+						$content .= "<div class='col-md-3'>";
+							$content .= '<a href="/'.$image.'" data-featherlight="image">';
+							$content .= "<img style='float:right;' src='/".$image."' width='75' height='75' class='minibild'>";
+							$content .= '</a>';
+						$content .= "</div>";
+					}
 
-				$content .= "</p>";
+				$content .= "</div>";
 			}
 
 			return $content;
@@ -112,8 +116,10 @@
 		{
 			for($i=0; $i < count($categories); $i++){
 				if($categories[$i]['link'] == $categoryName){
-					$content .= "<img src='/buttons/".$categories[$i]['image']."'>";
-					$content .= "<h2>Kategorie: ".$categories[$i]['description']."</h2>";
+					$content .= "<br>";
+					$content .= "<img src='/buttons/".$categories[$i]['image']."'> ";
+					$content .= "<h2> Kategorie: ".$categories[$i]['description']."</h2>";
+					$content .= "<br>";
 
 					break;
 				}

@@ -111,6 +111,7 @@
 		{
 
 			$categorieContent = $this->modelCategoryContent;
+
 			$templateVars['page'] = $categorieContent
 				->setCategoryName($categoryName)
 				->setCategories($this->categories)

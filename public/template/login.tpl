@@ -28,7 +28,7 @@
     <form method="post" action="/admin/">
 
         <div class="form-group">
-          <label class="col-md-4 control-label" for="input01">Passwort* dherkl2hz</label>
+          <label class="col-md-4 control-label" for="input01">Passwort*</label>
           <div class="col-md-4">
             <input placeholder="Passwort" pattern=".{8,}" class="form-control input-md" type="text" name="passwort" required>
           </div>

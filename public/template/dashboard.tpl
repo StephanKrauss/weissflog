@@ -23,12 +23,11 @@
 
 <body>
 
-<!-- Navigation -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-    <div class="container">
+<div class="row">
+    <div class="col-md-12 admin-row text-center">
         &nbsp;
     </div>
-</nav>
+</div>
 
 <!-- Page Content -->
 <div class="container">
@@ -37,12 +36,11 @@
 <!-- /.container -->
 
 <!-- Footer -->
-<footer class="py-5 bg-dark">
-    <div class="container">
-        <p class="m-0 text-center text-white">Copyright &copy; Your Website 2017</p>
+<div class="row">
+    <div class="col-md-12 admin-row text-center">
+        Programmierung: <a href="http://www.stephankrauss.de" target="_blank" style="color: white">Stephan Krauß</a>
     </div>
-    <!-- /.container -->
-</footer>
+</div>
 
 <!-- Bootstrap core JavaScript -->
 <script src="../jquery/jquery.min.js"></script>

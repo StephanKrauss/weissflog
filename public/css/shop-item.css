@@ -116,6 +116,14 @@ h3{
     text-decoration: underline;
 }
 
+.admin-row{
+    background-color: #007BFF;
+    color: white;
+    font-size: large;
+    padding: 4px;
+    margin-bottom: 5px;
+}
+
 h2{
     color: #007BFF;
     text-decoration: underline;
